@@ -52,6 +52,7 @@ object Dependencies {
     val kindProjector                    = "org.typelevel"                 %% "kind-projector"                         % "0.13.3"
     val logbackClassic                   = "ch.qos.logback"                 % "logback-classic"                        % logbackV
     val logbackCore                      = "ch.qos.logback"                 % "logback-core"                           % logbackV
+    val macroParadise                    = "org.scalamacros"                % "paradise"                               % "2.1.1"
     val micrometerRegistryPrometheus     = "io.micrometer"                  % "micrometer-registry-prometheus"         % "1.14.3"
     val mockitoScala                     = "org.scalatestplus"             %% "mockito-3-4"                            % "3.2.10.0" % Test
     val openTelemetryApi                 = "io.opentelemetry"               % "opentelemetry-api"                      % openTelemetryV
@@ -83,6 +84,7 @@ object Dependencies {
     val tapirServer                      = "com.softwaremill.sttp.tapir"   %% "tapir-server"                           % tapirV
     val testContainersMongodb            = "org.testcontainers"             % "mongodb"                                % "1.20.4"   % Test
     val typesafeConfig                   = "com.typesafe"                   % "config"                                 % "1.4.3"
+    val zioMacros                        = "dev.zio"                       %% "zio-macros"                             % zioV
     val zioConfig                        = "dev.zio"                       %% "zio-config"                             % zioConfigV
     val zioConfigMagnolia                = "dev.zio"                       %% "zio-config-magnolia"                    % zioConfigV
     val zioConfigEnumeratum              = "dev.zio"                       %% "zio-config-enumeratum"                  % zioConfigV
