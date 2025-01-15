@@ -5,6 +5,8 @@ import sbt.Keys.*
 import locales.{CLDRVersion, LocalesFilter, LocalesPlugin}
 import sbt.*
 import locales.LocalesPlugin.autoImport.*
+import sbtassembly.AssemblyKeys.assembly
+import sbtassembly.AssemblyPlugin
 
 object ModulesCommon {
 
@@ -150,6 +152,34 @@ object ModulesCommon {
           Libraries.openTelemetrySemconvIncubating,
           Libraries.reactiveMongo % Provided,
           Libraries.testContainersMongodb
+        )
+    )
+
+  lazy val reactivemongoOpentelemetryJavaagentExtensionProfile: Project => Project = _
+    .configure(ProjectSettings.commonProfile)
+    .enablePlugins(JavaAgent, AssemblyPlugin)
+    .settings(name := "utils-reactivemongo-opentelemetry-javaagent-extension")
+    .settings(javaAgents := Seq(Libraries.openTelemetryJavaagent % Test))
+    .settings(
+      libraryDependencies ++=
+        Seq(
+          Libraries.googleAutoService                  % Provided,
+          Libraries.openTelemetryJavaagentExtensionApi % Provided,
+          Libraries.openTelemetrySdk                   % Provided,
+          Libraries.logbackClassic                     % Test,
+          Libraries.reactiveMongo                      % Provided,
+          Libraries.testContainersMongodb
+        )
+    )
+    .settings(
+      Test / javaOptions ++=
+        Seq(
+          s"-Dotel.javaagent.extensions=${(Compile / packageBin).value.getAbsolutePath}",
+          "-Dio.opentelemetry.javaagent.shaded.io.opentelemetry.context.enableStrictContext=false",
+          "-Dotel.metrics.exporter=none",
+          "-Dotel.logs.exporter=none",
+          "-Dotel.traces.exporter=console"
+          // "-Dotel.javaagent.experimental.indy=true"
         )
     )
 
